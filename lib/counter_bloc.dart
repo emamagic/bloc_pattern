@@ -5,6 +5,8 @@ import 'package:bloc_pattern/counter_event.dart';
 class CounterBloc {
   int _counter = 0;
 
+//  final _counterStateController = StreamController<int>.broadcast();
+
   final _counterStateController = StreamController<int>();
   StreamSink<int> get _setState => _counterStateController.sink;
   Stream<int> get getState => _counterStateController.stream;
