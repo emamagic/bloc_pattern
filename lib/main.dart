@@ -1,5 +1,4 @@
 import 'package:bloc_pattern/counter_bloc.dart';
-import 'package:bloc_pattern/counter_event.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,10 +14,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _bloc = CounterBloc();
+  int counter = 0;
+  final counterBloc = CounterBloc();
 
   @override
   Widget build(BuildContext context) {
+    /**
+     * when you use stream the all tree widget not called.
+     * */
+    print("build is called");
     return Scaffold(
       appBar: AppBar(
         title: Text("Flutter Demo Home Page"),
@@ -26,9 +30,8 @@ class _HomeState extends State<Home> {
       ),
       body: Center(
         child: StreamBuilder(
-          stream: _bloc.counter,
-          initialData: 0,
-          builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+          stream: counterBloc.stream,
+          builder: (context, snapshot) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -37,7 +40,7 @@ class _HomeState extends State<Home> {
               ],
             );
           },
-        )
+        ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -45,21 +48,22 @@ class _HomeState extends State<Home> {
         FloatingActionButton(
           child: Icon(Icons.add),
           tooltip: "Increment",
-          onPressed: () => _bloc.counterEventSink.add(IncrementEvent()),
+          onPressed: () {
+            counter += 1;
+            counterBloc.sink.add(counter);
+          },
         ),
         SizedBox(width: 12,),
         FloatingActionButton(
           child: Icon(Icons.remove),
           tooltip: "Decrement",
-          onPressed: () => _bloc.counterEventSink.add(DecrementEvent()),
+          onPressed: () {
+            counter -= 1;
+            counterBloc.sink.add(counter);
+          },
         ),
       ]),
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
-  }
 }
