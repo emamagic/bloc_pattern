@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
           stream: _bloc.getState,
           initialData: 0,
           builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+            // if (snapshot.hasData)
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

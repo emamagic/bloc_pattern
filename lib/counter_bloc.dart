@@ -5,7 +5,9 @@ import 'package:bloc_pattern/counter_event.dart';
 class CounterBloc {
   int _counter = 0;
 
-//  final _counterStateController = StreamController<int>.broadcast();
+  /// streamController can handle multi subscription by default, but
+  /// you can change it by setting broadcast -->
+  ///  final _counterStateController = StreamController<int>.broadcast();
 
   final _counterStateController = StreamController<int>();
   StreamSink<int> get _setState => _counterStateController.sink;
