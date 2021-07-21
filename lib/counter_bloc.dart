@@ -10,4 +10,7 @@ class CounterBloc {
   Stream<int> get stream => _streamController.stream;
 
 
+  void dispose() {
+    _streamController.close();
+  }
 }
