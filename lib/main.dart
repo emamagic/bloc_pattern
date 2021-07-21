@@ -1,21 +1,36 @@
-import 'package:bloc_pattern/counter_bloc.dart';
-import 'package:bloc_pattern/counter_event.dart';
+import 'dart:async';
+import 'package:bloc_pattern/timer_info.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: Home(),
+    home: ChangeNotifierProvider(
+        create: (context) => TimerInfo(),
+        child: Home()),
   ));
 }
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final _bloc = CounterBloc();
+
+  @override
+  void initState() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      /**
+       * if you use Provider of side of widget tree, you should set listen to false other wise else
+       * */
+      var timeInfo = Provider.of<TimerInfo>(context, listen: false);
+      timeInfo.updateRemainingTime();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,41 +40,16 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.blue,
       ),
       body: Center(
-        child: StreamBuilder(
-          stream: _bloc.getState,
-          initialData: 0,
-          builder: (BuildContext context, AsyncSnapshot<int> snapshot){
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("result"),
-                Text("${snapshot.data}"),
-              ],
-            );
-          },
-        )
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-        FloatingActionButton(
-          child: Icon(Icons.add),
-          tooltip: "Increment",
-          onPressed: () => _bloc.setEvent.add(IncrementEvent()),
-        ),
-        SizedBox(width: 12,),
-        FloatingActionButton(
-          child: Icon(Icons.remove),
-          tooltip: "Decrement",
-          onPressed: () => _bloc.setEvent.add(DecrementEvent()),
-        ),
-      ]),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Consumer<TimerInfo>(
+              builder: (context, data, child) {
+                  return Text("${data.getRemainingTime()}");
+              },
+          ),
+        ],
+      )),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
   }
 }
