@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
       ),
       body: Center(
         child: StreamBuilder(
-          stream: _bloc.counter,
+          stream: _bloc.getState,
           initialData: 0,
           builder: (BuildContext context, AsyncSnapshot<int> snapshot){
             return Column(
@@ -45,13 +45,13 @@ class _HomeState extends State<Home> {
         FloatingActionButton(
           child: Icon(Icons.add),
           tooltip: "Increment",
-          onPressed: () => _bloc.counterEventSink.add(IncrementEvent()),
+          onPressed: () => _bloc.setEvent.add(IncrementEvent()),
         ),
         SizedBox(width: 12,),
         FloatingActionButton(
           child: Icon(Icons.remove),
           tooltip: "Decrement",
-          onPressed: () => _bloc.counterEventSink.add(DecrementEvent()),
+          onPressed: () => _bloc.setEvent.add(DecrementEvent()),
         ),
       ]),
     );

@@ -6,11 +6,11 @@ class CounterBloc {
   int _counter = 0;
 
   final _counterStateController = StreamController<int>();
-  StreamSink<int> get _inCounter => _counterStateController.sink;
-  Stream<int> get counter => _counterStateController.stream;
+  StreamSink<int> get _setState => _counterStateController.sink;
+  Stream<int> get getState => _counterStateController.stream;
 
   final _counterEventController = StreamController<CounterEvent>();
-  StreamSink<CounterEvent> get counterEventSink => _counterEventController.sink;
+  StreamSink<CounterEvent> get setEvent => _counterEventController.sink;
 
   CounterBloc() {
     _counterEventController.stream.listen(_mapEventToState);
@@ -22,7 +22,7 @@ class CounterBloc {
     } else {
       _counter--;
     }
-    _inCounter.add(_counter);
+    _setState.add(_counter);
   }
 
   void dispose() {
