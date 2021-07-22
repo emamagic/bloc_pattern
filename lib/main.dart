@@ -19,7 +19,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _counterBloc = CounterBloc();
+  final _counterBloc = ;
+
+  @override
+  Widget build(BuildContext context) {
+    //  final _bloc = BlocProvider.of<CounterBloc>(context);
+    return BlocProvider(
+      create: (BuildContext context) => CounterBloc(),
+      child: CounterWidget(widget: widget),
+    );
+  }
+
+  @override
+  void dispose() {
+    _counterBloc.dispose();
+    super.dispose();
+  }
+}
+
+class CounterWidget extends StatelessWidget {
+  final Home widget;
+
+  const CounterWidget({Key? key, required this.widget}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +50,14 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.blue,
       ),
       body: BlocBuilder<CounterBloc, int>(
-        bloc: _counterBloc,
-        builder: (context, int c) {
+        bloc: BlocProvider.of<CounterBloc>(context),
+        builder: (BuildContext context, int counter) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("result"),
-                Text("$c"),
+                Text("$counter"),
               ],
             ),
           );
@@ -45,25 +66,20 @@ class _HomeState extends State<Home> {
       floatingActionButton:
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton(
-          child: Icon(Icons.add),
-          tooltip: "Increment",
-          onPressed: () => _counterBloc.add(IncrementEvent())
-        ),
+            child: Icon(Icons.add),
+            tooltip: "Increment",
+            onPressed: () =>
+                BlocProvider.of<CounterBloc>(context).add(IncrementEvent())),
         SizedBox(
           width: 12,
         ),
         FloatingActionButton(
           child: Icon(Icons.remove),
           tooltip: "Decrement",
-          onPressed: () => _counterBloc.add(DecrementEvent()),
+          onPressed: () =>
+              BlocProvider.of<CounterBloc>(context).add(DecrementEvent()),
         ),
       ]),
     );
-  }
-
-  @override
-  void dispose() {
-    _counterBloc.dispose();
-    super.dispose();
   }
 }
