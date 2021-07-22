@@ -1,6 +1,9 @@
 import 'package:bloc_pattern/counter_bloc.dart';
 import 'package:bloc_pattern/counter_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'counter_state.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -10,12 +13,13 @@ void main() {
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final _bloc = CounterBloc();
+  final _counterBloc = CounterBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -24,35 +28,34 @@ class _HomeState extends State<Home> {
         title: Text("Flutter Demo Home Page"),
         backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: StreamBuilder(
-          stream: _bloc.getState,
-          initialData: 0,
-          builder: (BuildContext context, AsyncSnapshot<int> snapshot){
-            // if (snapshot.hasData)
-            return Column(
+      body: BlocBuilder<CounterBloc, int>(
+        bloc: _counterBloc,
+        builder: (context, int c) {
+          return Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("result"),
-                Text("${snapshot.data}"),
+                Text("$c"),
               ],
-            );
-          },
-        )
+            ),
+          );
+        },
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-          children: [
+      floatingActionButton:
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton(
           child: Icon(Icons.add),
           tooltip: "Increment",
-          onPressed: () => _bloc.setEvent.add(IncrementEvent()),
+          onPressed: () => _counterBloc.add(IncrementEvent())
         ),
-        SizedBox(width: 12,),
+        SizedBox(
+          width: 12,
+        ),
         FloatingActionButton(
           child: Icon(Icons.remove),
           tooltip: "Decrement",
-          onPressed: () => _bloc.setEvent.add(DecrementEvent()),
+          onPressed: () => _counterBloc.add(DecrementEvent()),
         ),
       ]),
     );
@@ -60,7 +63,7 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose() {
+    _counterBloc.dispose();
     super.dispose();
-    _bloc.dispose();
   }
 }

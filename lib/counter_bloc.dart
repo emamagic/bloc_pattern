@@ -1,37 +1,23 @@
 import 'dart:async';
 
 import 'package:bloc_pattern/counter_event.dart';
+import 'package:bloc_pattern/counter_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterBloc {
-  int _counter = 0;
+class CounterBloc extends Bloc<CounterEvent ,int> {
 
-  /// streamController can handle multi subscription by default, but
-  /// you can change it by setting broadcast -->
-  ///  final _counterStateController = StreamController<int>.broadcast();
-
-  final _counterStateController = StreamController<int>();
-  StreamSink<int> get _setState => _counterStateController.sink;
-  Stream<int> get getState => _counterStateController.stream;
-
-  final _counterEventController = StreamController<CounterEvent>();
-  StreamSink<CounterEvent> get setEvent => _counterEventController.sink;
-
-  CounterBloc() {
-    _counterEventController.stream.listen(_mapEventToState);
-  }
-
-  void _mapEventToState(CounterEvent event) {
-    if(event is IncrementEvent) {
-      _counter++;
-    } else {
-      _counter--;
+  CounterBloc() : super(0);
+  @override
+  Stream<int> mapEventToState(CounterEvent event) async* {
+    if (event is IncrementEvent) {
+      yield state+1;
+    } else if (event is DecrementEvent) {
+    yield state-1;
     }
-    _setState.add(_counter);
   }
 
   void dispose() {
-    _counterStateController.close();
-    _counterEventController.close();
+    close();
   }
 
 }
