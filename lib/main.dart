@@ -1,9 +1,9 @@
 import 'package:bloc_pattern/counter_bloc.dart';
-import 'package:bloc_pattern/second_screen.dart';
+import 'package:bloc_pattern/ui/screen/second_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'firs_screen.dart';
+import 'ui/screen/firs_screen.dart';
 
 void main() {
 
