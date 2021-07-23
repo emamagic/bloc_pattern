@@ -5,18 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: Home(),
-  ));
-}
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => CounterBloc(),
+    home: BlocProvider(
+      create: (context) => CounterBloc(),
       child: CounterWidget(),
-    );
-  }
+    ),
+  ));
 }
 
 class CounterWidget extends StatelessWidget {
@@ -44,7 +37,7 @@ class CounterWidget extends StatelessWidget {
         ),
       ),
       floatingActionButton:
-          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton(
             child: Icon(Icons.add),
             tooltip: "Increment",
