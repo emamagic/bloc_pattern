@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/counter_bloc.dart';
 import 'package:bloc_pattern/counter_event.dart';
+import 'package:bloc_pattern/second_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +14,6 @@ void main() {
 }
 
 class CounterWidget extends StatelessWidget {
-
   const CounterWidget({Key? key}) : super(key: key);
 
   @override
@@ -37,12 +37,11 @@ class CounterWidget extends StatelessWidget {
         ),
       ),
       floatingActionButton:
-      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton(
-            child: Icon(Icons.add),
-            tooltip: "Increment",
-            onPressed: () =>
-                BlocProvider.of<CounterBloc>(context).increment(),
+          child: Icon(Icons.add),
+          tooltip: "Increment",
+          onPressed: () => BlocProvider.of<CounterBloc>(context).increment(),
         ),
         SizedBox(
           width: 12,
@@ -50,9 +49,21 @@ class CounterWidget extends StatelessWidget {
         FloatingActionButton(
           child: Icon(Icons.remove),
           tooltip: "Decrement",
-          onPressed: () =>
-              BlocProvider.of<CounterBloc>(context).decrement(),
+          onPressed: () => BlocProvider.of<CounterBloc>(context).decrement(),
         ),
+        SizedBox(
+          width: 12,
+        ),
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => BlocProvider.value(
+                      value: BlocProvider.of<CounterBloc>(context),
+                      child: SecondScreen(),
+                    )));
+          },
+          child: Text('second screen'),
+        )
       ]),
     );
   }
