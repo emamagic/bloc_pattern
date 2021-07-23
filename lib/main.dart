@@ -3,8 +3,6 @@ import 'package:bloc_pattern/counter_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'counter_state.dart';
-
 void main() {
   runApp(MaterialApp(
     home: Home(),
