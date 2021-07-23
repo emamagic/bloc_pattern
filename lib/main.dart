@@ -7,33 +7,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'ui/screen/firs_screen.dart';
 
 void main() {
-
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
 
   final appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: appRouter.onGenerateRoute,
+    return BlocProvider(
+      create: (context) => CounterBloc(),
+      child: MaterialApp(
+        onGenerateRoute: appRouter.onGenerateRoute,
+      ),
     );
   }
 
-  @override
-  void dispose() {
-    appRouter.dispose();
-    super.dispose();
-  }
 }
 
 

@@ -6,30 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
-  final bloc = CounterBloc();
-
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case "/":
         return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                  value: bloc,
-                  child: FirstScreen(),
-                ));
-        break;
+                  builder: (_) => FirstScreen(),
+                );
       case "/second_screen":
         return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                  value: bloc,
-                  child: SecondScreen(),
-                ));
-        break;
+          builder: (_) => SecondScreen()
+        );
       default:
         throw Exception("no route found exception");
     }
   }
 
-  void dispose() {
-    bloc.close();
-  }
 }
