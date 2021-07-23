@@ -16,8 +16,4 @@ class CounterBloc extends Bloc<CounterEvent ,int> {
     }
   }
 
-  void dispose() {
-    close();
-  }
-
 }

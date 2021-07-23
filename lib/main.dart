@@ -19,22 +19,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _counterBloc = ;
 
   @override
   Widget build(BuildContext context) {
-    //  final _bloc = BlocProvider.of<CounterBloc>(context);
     return BlocProvider(
       create: (BuildContext context) => CounterBloc(),
       child: CounterWidget(widget: widget),
     );
   }
 
-  @override
-  void dispose() {
-    _counterBloc.dispose();
-    super.dispose();
-  }
 }
 
 class CounterWidget extends StatelessWidget {
