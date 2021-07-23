@@ -19,7 +19,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -27,7 +26,6 @@ class _HomeState extends State<Home> {
       child: CounterWidget(widget: widget),
     );
   }
-
 }
 
 class CounterWidget extends StatelessWidget {
@@ -42,19 +40,18 @@ class CounterWidget extends StatelessWidget {
         title: Text("Flutter Demo Home Page"),
         backgroundColor: Colors.blue,
       ),
-      body: BlocBuilder<CounterBloc, int>(
-        bloc: BlocProvider.of<CounterBloc>(context),
-        builder: (BuildContext context, int counter) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("result"),
-                Text("$counter"),
-              ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("result"),
+            BlocBuilder<CounterBloc, int>(
+              builder: (context, state) {
+                return Text("$state");
+              },
             ),
-          );
-        },
+          ],
+        ),
       ),
       floatingActionButton:
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
