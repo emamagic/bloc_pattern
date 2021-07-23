@@ -16,4 +16,12 @@ class CounterBloc extends Bloc<CounterEvent ,int> {
     }
   }
 
+  void increment() {
+    add(IncrementEvent());
+  }
+
+  void decrement() {
+    add(DecrementEvent());
+  }
+
 }

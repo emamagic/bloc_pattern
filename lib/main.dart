@@ -42,7 +42,8 @@ class CounterWidget extends StatelessWidget {
             child: Icon(Icons.add),
             tooltip: "Increment",
             onPressed: () =>
-                BlocProvider.of<CounterBloc>(context).add(IncrementEvent())),
+                BlocProvider.of<CounterBloc>(context).increment(),
+        ),
         SizedBox(
           width: 12,
         ),
@@ -50,7 +51,7 @@ class CounterWidget extends StatelessWidget {
           child: Icon(Icons.remove),
           tooltip: "Decrement",
           onPressed: () =>
-              BlocProvider.of<CounterBloc>(context).add(DecrementEvent()),
+              BlocProvider.of<CounterBloc>(context).decrement(),
         ),
       ]),
     );
