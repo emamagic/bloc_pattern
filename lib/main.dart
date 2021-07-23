@@ -57,6 +57,9 @@ class CounterWidget extends StatelessWidget {
         FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
+              /**
+               * CounterBloc shared between two screen
+               * */
                 builder: (_) => BlocProvider.value(
                       value: BlocProvider.of<CounterBloc>(context),
                       child: SecondScreen(),
