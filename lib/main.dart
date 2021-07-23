@@ -1,21 +1,31 @@
 import 'package:bloc_pattern/counter_bloc.dart';
-import 'package:bloc_pattern/counter_event.dart';
 import 'package:bloc_pattern/second_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
+
+  /**
+   * we should close it by our self
+   * */
+  var bloc = CounterBloc();
+
   runApp(MaterialApp(
-    home: BlocProvider(
-      create: (context) => CounterBloc(),
-      child: CounterWidget(),
-    ),
+    routes: {
+      '/': (context) => BlocProvider.value(value: bloc ,child: CounterWidget(),),
+      '/second_screen': (context) => BlocProvider.value(value: bloc ,child: SecondScreen(),),
+    },
   ));
 }
 
-class CounterWidget extends StatelessWidget {
+class CounterWidget extends StatefulWidget {
   const CounterWidget({Key? key}) : super(key: key);
 
+  @override
+  _CounterWidgetState createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,14 +66,7 @@ class CounterWidget extends StatelessWidget {
         ),
         FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              /**
-               * CounterBloc shared between two screen
-               * */
-                builder: (_) => BlocProvider.value(
-                      value: BlocProvider.of<CounterBloc>(context),
-                      child: SecondScreen(),
-                    )));
+            Navigator.of(context).pushNamed("/second_screen");
           },
           child: Text('second screen'),
         )
