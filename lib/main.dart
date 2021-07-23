@@ -23,15 +23,14 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => CounterBloc(),
-      child: CounterWidget(widget: widget),
+      child: CounterWidget(),
     );
   }
 }
 
 class CounterWidget extends StatelessWidget {
-  final Home widget;
 
-  const CounterWidget({Key? key, required this.widget}) : super(key: key);
+  const CounterWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
