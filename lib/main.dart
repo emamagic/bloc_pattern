@@ -1,4 +1,5 @@
 import 'package:bloc_pattern/counter_bloc.dart';
+import 'package:bloc_pattern/ui/router/app_router.dart';
 import 'package:bloc_pattern/ui/screen/second_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,22 +19,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  /// we should close it by our self
-  final bloc = CounterBloc();
+
+  final appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        '/': (context) => BlocProvider.value(value: bloc ,child: FirstScreen(),),
-        '/second_screen': (context) => BlocProvider.value(value: bloc ,child: SecondScreen(),),
-      },
+      onGenerateRoute: appRouter.onGenerateRoute,
     );
   }
 
   @override
   void dispose() {
-    bloc.dispose();
+    appRouter.dispose();
     super.dispose();
   }
 }
