@@ -8,12 +8,8 @@ import 'package:bloc_pattern/ui/internet/internet_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterBloc extends Bloc<CounterEvent, int> {
-  late final InternetCubit internetCubit;
-  late StreamSubscription internetStreamSubscription;
 
-  CounterBloc({required this.internetCubit}) : super(0) {
-    monitorInternetCubit();
-  }
+  CounterBloc() : super(0);
 
   @override
   Stream<int> mapEventToState(CounterEvent event) async* {
@@ -32,25 +28,10 @@ class CounterBloc extends Bloc<CounterEvent, int> {
     add(DecrementEvent());
   }
 
-  void monitorInternetCubit() {
-    internetStreamSubscription = internetCubit.stream.listen((internetState) {
-      if (internetState is InternetConnected &&
-          internetState.connectionType == ConnectionType.Wifi) {
-        increment();
-      } else if (internetState is InternetConnected &&
-          internetState.connectionType == ConnectionType.Mobile) {
-        decrement();
-      }
-    });
-  }
 
   void dispose() {
     close();
   }
 
-  @override
-  Future<void> close() {
-    internetStreamSubscription.cancel();
-    return super.close();
-  }
+
 }
