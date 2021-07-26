@@ -1,3 +1,4 @@
+import 'package:bloc_pattern/app_bloc_observer.dart';
 import 'package:bloc_pattern/ui/counter/counter_bloc.dart';
 import 'package:bloc_pattern/ui/counter/counter_state.dart';
 import 'package:bloc_pattern/ui/internet/internet_cubit.dart';
@@ -17,6 +18,8 @@ void main() async {
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory()
   );
+
+  Bloc.observer = AppBlocObserver();
 
   runApp(MyApp(
     appRouter: AppRouter(),
