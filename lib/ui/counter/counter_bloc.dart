@@ -6,8 +6,9 @@ import 'package:bloc_pattern/ui/counter/counter_state.dart';
 import 'package:bloc_pattern/ui/internet/internet_cubit.dart';
 import 'package:bloc_pattern/ui/internet/internet_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-class CounterBloc extends Bloc<CounterEvent, int> {
+class CounterBloc extends Bloc<CounterEvent, int> with HydratedMixin{
 
   CounterBloc() : super(0);
 
@@ -31,6 +32,18 @@ class CounterBloc extends Bloc<CounterEvent, int> {
 
   void dispose() {
     close();
+  }
+
+  @override
+  int? fromJson(Map<String, dynamic> json) {
+    // TODO: implement fromJson
+    throw UnimplementedError();
+  }
+
+  @override
+  Map<String, dynamic>? toJson(int state) {
+    // TODO: implement toJson
+    throw UnimplementedError();
   }
 
 

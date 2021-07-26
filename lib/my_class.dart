@@ -9,14 +9,6 @@ class MyClass extends Equatable{
 
   @override
   List<Object?> get props => [a];
-
-  // @override
-  // bool operator ==(Object other) =>
-  //     identical(this, other) ||
-  //     other is MyClass && runtimeType == other.runtimeType && a == other.a;
-  //
-  // @override
-  // int get hashCode => a.hashCode;
-
+  
 
 }
