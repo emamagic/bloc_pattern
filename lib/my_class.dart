@@ -9,6 +9,6 @@ class MyClass extends Equatable{
 
   @override
   List<Object?> get props => [a];
-  
+
 
 }
