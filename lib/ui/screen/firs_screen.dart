@@ -1,7 +1,10 @@
+import 'package:bloc_pattern/constants/enums.dart';
+import 'package:bloc_pattern/ui/internet/internet_cubit.dart';
+import 'package:bloc_pattern/ui/internet/internet_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../counter_bloc.dart';
+import '../counter/counter_bloc.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -22,6 +25,18 @@ class _FirstScreenState extends State<FirstScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            BlocBuilder<InternetCubit, InternetState>(
+                builder: (context, state) {
+                  if (state is InternetConnected && state.connectionType == ConnectionType.Wifi) {
+                    return Text('wifi');
+                  } else if (state is InternetConnected && state.connectionType == ConnectionType.Mobile) {
+                    return Text('mobile');
+                  } else if (state is InternetDisconnected) {
+                    return Text('disconnect');
+                  }
+                  return CircularProgressIndicator();
+                }
+            ),
             Text("result"),
             BlocBuilder<CounterBloc, int>(
               builder: (context, state) {

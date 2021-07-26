@@ -1,4 +1,4 @@
-import 'package:bloc_pattern/counter_bloc.dart';
+import 'package:bloc_pattern/ui/counter/counter_bloc.dart';
 import 'package:bloc_pattern/ui/screen/firs_screen.dart';
 import 'package:bloc_pattern/ui/screen/second_screen.dart';
 import 'package:flutter/cupertino.dart';
