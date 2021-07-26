@@ -4,15 +4,16 @@ import 'package:bloc_pattern/counter_event.dart';
 import 'package:bloc_pattern/counter_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterBloc extends Bloc<CounterEvent ,int> {
+class CounterBloc extends Bloc<CounterEvent ,CounterState> {
 
-  CounterBloc() : super(0);
+  CounterBloc() : super(CounterState(counter: 0));
   @override
-  Stream<int> mapEventToState(CounterEvent event) async* {
+  Stream<CounterState> mapEventToState(CounterEvent event) async* {
+    print('$event');
     if (event is IncrementEvent) {
-      yield state+1;
+      yield state.copyWith(counter: state.counter+1);
     } else if (event is DecrementEvent) {
-    yield state-1;
+    yield state.copyWith(counter: state.counter-1);
     }
   }
 

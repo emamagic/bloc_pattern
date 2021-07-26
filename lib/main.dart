@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/counter_bloc.dart';
 import 'package:bloc_pattern/counter_event.dart';
+import 'package:bloc_pattern/counter_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,9 +29,9 @@ class CounterWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("result"),
-            BlocBuilder<CounterBloc, int>(
+            BlocBuilder<CounterBloc, CounterState>(
               builder: (context, state) {
-                return Text("$state");
+                return Text("${state.counter}");
               },
             ),
           ],

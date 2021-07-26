@@ -1,9 +1,22 @@
-class CounterState {
+import 'package:equatable/equatable.dart';
 
-  late int counter;
-  CounterState._();
+class CounterState extends Equatable {
 
-  factory CounterState.initial() {
-    return CounterState._()..counter = 0;
+  final int counter;
+  CounterState({required this.counter});
+
+  @override
+  List<Object?> get props => [counter];
+
+  CounterState copyWith({
+    required int counter,
+  }) {
+    if ((identical(counter, this.counter))) {
+      return this;
+    }
+
+    return new CounterState(
+      counter: counter,
+    );
   }
 }
